@@ -62,5 +62,4 @@ void result_output (array_t tour, const char * path){
     }
 
     fclose(fp);
-    array_free(tour);
 }

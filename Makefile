@@ -16,7 +16,10 @@ bin/io.o: src/io.c
 bin/tsp.o: src/tsp.c
 	$(CC) $(C_FLAGS) -c $^ -o $@ $(INC)
 
-tsp: bin/driver.o bin/io.o bin/tsp.o bin/array.o
+bin/stack.o: src/stack.c
+	$(CC) $(C_FLAGS) -c $^ -o $@ $(INC)
+
+tsp: bin/driver.o bin/io.o bin/tsp.o bin/array.o bin/stack.o
 	$(CC) $(C_FLAGS) $^ -o $@ $(INC)
 
 clean:

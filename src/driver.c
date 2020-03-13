@@ -15,7 +15,11 @@ int main(int argc, char **argv) {
     array_t odd_vertices = get_odd_vertices(tsp);
     printf("There are %d odd vertices\n", odd_vertices->length);
 
+    // build the perfect matching graph
+    build_perfect_matching(tsp, odd_vertices);
+
     free_tsp(tsp);
+    array_free(odd_vertices);
 
     return 0;
 }

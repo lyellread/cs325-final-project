@@ -72,8 +72,8 @@ void build_mst(TSP *tsp) {
 		int n2 = parent[i];
 		if (in_mst[i] && n2 != -1) {
 			// node is in mst
-			array_append(tsp->mst_peers[i], n2);
-			array_append(tsp->mst_peers[n2], i);
+			array_append(tsp->multigraph[i], n2);
+			array_append(tsp->multigraph[n2], i);
 		}
 	}
 
@@ -96,14 +96,45 @@ int mst_min_key(TSP *tsp, int key[], bool in_mst[]) {
 }
 
 // get the odd vertices (after mst)
+// O(V)
 array_t get_odd_vertices(TSP *tsp) {
 	array_t odd_vertices = array_new();
 	for (int i = 0; i < tsp->num_nodes; i++) {
-		if (tsp->mst_peers[i]->length % 2 == 1) {
+		if (tsp->multigraph[i]->length % 2 == 1) {
 			array_append(odd_vertices, i);
 		}
 	}
 	return odd_vertices;
+}
+
+// add the perfect matching graph to the multigraph
+// O(V), where V is the number of vertices in the odd vertex subgraph
+void build_perfect_matching(TSP *tsp, array_t odd_vertices) {
+	unsigned int length;
+	int saved_node, i;
+
+	// keep going until no more left
+	// can't use for b/c odd_vertices gets modified out of order
+	while (odd_vertices->length != 0) {
+		length = saved_node = INT_MAX;
+
+		// find a vertex near the first in the array
+		for (i = 1; i < odd_vertices->length; i++) {
+			if (tsp->graph[odd_vertices->data[0]][odd_vertices->data[i]] < length) {
+				// found a closer vertex
+				length = tsp->graph[odd_vertices->data[0]][odd_vertices->data[i]];
+				saved_node = odd_vertices->data[i];
+			}
+		}
+
+		// save the edge
+		array_append(tsp->multigraph[odd_vertices->data[0]], saved_node);
+		array_append(tsp->multigraph[saved_node], odd_vertices->data[0]);
+
+		// remove two nodes from odd_vertices
+		array_remove_at(odd_vertices, 0);
+		array_remove_elem(odd_vertices, saved_node);
+	}
 }
 
 // free heap memory for tsp struct
@@ -112,13 +143,13 @@ void free_tsp(TSP *tsp) {
 		free(tsp->graph[i]);
 		tsp->graph[i] = NULL;
 	
-		array_free(tsp->mst_peers[i]);
-		tsp->mst_peers[i] = NULL;
+		array_free(tsp->multigraph[i]);
+		tsp->multigraph[i] = NULL;
 	}
 	free(tsp->graph);
 	tsp->graph = NULL;
-	free(tsp->mst_peers);
-	tsp->mst_peers = NULL;
+	free(tsp->multigraph);
+	tsp->multigraph = NULL;
 
 	free(tsp->nodes);
 	tsp->nodes = NULL;

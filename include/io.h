@@ -3,10 +3,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "array.h"
 #include "tsp.h"
 
 TSP *init_tsp(const char *);
-
+void result_output (array_t, const char *);
 #endif

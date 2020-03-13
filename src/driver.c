@@ -18,8 +18,12 @@ int main(int argc, char **argv) {
     // build the perfect matching graph
     build_perfect_matching(tsp, odd_vertices);
 
+    // generate euler tour
+    array_t euler_tour = generate_euler_tour(tsp);
+
     free_tsp(tsp);
     array_free(odd_vertices);
+    free(euler_tour);
 
     return 0;
 }

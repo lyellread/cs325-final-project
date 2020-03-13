@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 #include "array.h"
+#include "stack.h"
 
 #define MAX_NODES 15112
 
@@ -37,6 +38,7 @@ void build_mst(TSP *);
 int mst_min_key(TSP *, int [], bool []);
 array_t get_odd_vertices(TSP *);
 void build_perfect_matching(TSP *, array_t);
+array_t generate_euler_tour(TSP *);
 void free_tsp(TSP *);
 
 #endif

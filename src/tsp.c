@@ -170,7 +170,6 @@ array_t tsp_from_euler (array_t euler_tour){
 			array_append(tour, euler_tour->data[i]);
 		}
 	}
-	array_free(euler_tour);
 	return tour;
 }
 

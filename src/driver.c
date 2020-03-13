@@ -12,7 +12,8 @@ int main(int argc, char **argv) {
     build_mst(tsp);
 
     // get the odd-degree vertices
-
+    array_t odd_vertices = get_odd_vertices(tsp);
+    printf("There are %d odd vertices\n", odd_vertices->length);
 
     free_tsp(tsp);
 

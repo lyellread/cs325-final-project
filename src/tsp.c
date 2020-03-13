@@ -67,6 +67,7 @@ void build_mst(TSP *tsp) {
 	}
 
 	// save mst edges
+	// this makes getting the odd degree vertices super easy
 	for (int i = 1; i < tsp->num_nodes; i++) {
 		int n2 = parent[i];
 		if (in_mst[i] && n2 != -1) {
@@ -94,18 +95,33 @@ int mst_min_key(TSP *tsp, int key[], bool in_mst[]) {
 	return min_idx;
 }
 
+// get the odd vertices (after mst)
+array_t get_odd_vertices(TSP *tsp) {
+	array_t odd_vertices = array_new();
+	for (int i = 0; i < tsp->num_nodes; i++) {
+		if (tsp->mst_peers[i]->length % 2 == 1) {
+			array_append(odd_vertices, i);
+		}
+	}
+	return odd_vertices;
+}
+
 // free heap memory for tsp struct
 void free_tsp(TSP *tsp) {
 	for (int i = 0; i < tsp->num_nodes; i++) {
 		free(tsp->graph[i]);
 		tsp->graph[i] = NULL;
+	
+		array_free(tsp->mst_peers[i]);
+		tsp->mst_peers[i] = NULL;
 	}
 	free(tsp->graph);
+	tsp->graph = NULL;
+	free(tsp->mst_peers);
+	tsp->mst_peers = NULL;
 
 	free(tsp->nodes);
 	tsp->nodes = NULL;
-
-	array_free(tsp->mst_peers);
 
 	free(tsp);
 	tsp = NULL;

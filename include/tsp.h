@@ -34,6 +34,7 @@ int get_euclidean_distance(Node, Node);
 void generate_graph(TSP *);
 void build_mst(TSP *);
 int mst_min_key(TSP *, int [], bool []);
+array_t get_odd_vertices(TSP *tsp);
 void free_tsp(TSP *);
 
 #endif

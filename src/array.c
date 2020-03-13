@@ -73,12 +73,12 @@ void array_remove_elem(array_t arr, int val) {
 // get index of first occurrence of item in array, if any
 // else return -1
 int array_in(array_t array, int val){
-    for (i = 0; i < array->length; i++){
+    for (int i = 0; i < array->length; i++){
         if (array->data[i] == val){
             return i;
         }
     }
-    
+
     return -1;
 }
 

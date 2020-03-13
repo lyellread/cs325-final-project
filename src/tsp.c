@@ -109,6 +109,7 @@ array_t get_odd_vertices(TSP *tsp) {
 
 // add the perfect matching graph to the multigraph
 // O(V), where V is the number of vertices in the odd vertex subgraph
+// minimum not required, this is O(V^2) vs O(V^3) if it was minimum
 void build_perfect_matching(TSP *tsp, array_t odd_vertices) {
 	unsigned int length;
 	int saved_node, i;
@@ -136,6 +137,13 @@ void build_perfect_matching(TSP *tsp, array_t odd_vertices) {
 		array_remove_elem(odd_vertices, saved_node);
 	}
 }
+
+// generate the Euler tour for the multigraph
+array_t generate_euler_tour(TSP *tsp) {
+	stack_t stack = stack_new();
+	array_t circuit = array_new();
+}
+
 
 // free heap memory for tsp struct
 void free_tsp(TSP *tsp) {

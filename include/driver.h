@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "io.h"
+#include "tsp.h"
 
 int main(int, char **);
 

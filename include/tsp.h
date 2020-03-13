@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "array.h"
+
 #define MAX_NODES 15112
 
 typedef int **Graph;
@@ -25,7 +27,7 @@ typedef struct {
     Node *nodes;
     int num_nodes;
     Graph graph; // 2D int array w/ Euclidean distances as values
-    Edge *mst;
+    array_t *mst_peers; // track what nodes have edges to what in the mst
 } TSP;
 
 int get_euclidean_distance(Node, Node);

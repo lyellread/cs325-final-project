@@ -1,6 +1,7 @@
 #include "tsp.h"
 
 // get the Euclidean distance b/t two nodes
+// O(c)
 int get_euclidean_distance(Node n1, Node n2) {
 	double dx = pow((double)(n1.x - n2.x), 2);
 	double dy = pow((double)(n1.y - n2.y), 2);
@@ -9,6 +10,7 @@ int get_euclidean_distance(Node n1, Node n2) {
 }
 
 // generate the distances for the whole graph
+// O(V^2)
 void generate_graph(TSP *tsp) {
 	for (int i = 0; i < tsp->num_nodes; i++) {
 		for (int j = 0; j < tsp->num_nodes; j++) {
@@ -28,16 +30,13 @@ void _print_mst(TSP *tsp, int parent[]) {
 }
 
 // use prim's algorithm to find MST
+// O(V^2)
 void build_mst(TSP *tsp) {
 	int key[tsp->num_nodes];
 	int parent[tsp->num_nodes];
-	Edge *mst;
 	bool in_mst[tsp->num_nodes];
 
 	int min_node;
-
-	// dynamic b/c easier to return
-	mst = malloc(sizeof(Edge) * tsp->num_nodes);
 
 	// init arrs
 	for (int i = 0; i < tsp->num_nodes; i++) {
@@ -67,10 +66,21 @@ void build_mst(TSP *tsp) {
 		}
 	}
 
+	// save mst edges
+	for (int i = 1; i < tsp->num_nodes; i++) {
+		int n2 = parent[i];
+		if (in_mst[i] && n2 != -1) {
+			// node is in mst
+			array_append(tsp->mst_peers[i], n2);
+			array_append(tsp->mst_peers[n2], i);
+		}
+	}
+
 	// _print_mst(tsp, parent);
 }
 
 // find the lowest edge that's not in the MST
+// O(V)
 int mst_min_key(TSP *tsp, int key[], bool in_mst[]) {
 	int min_idx, min_val = INT_MAX;
 	for (int i = 0; i < tsp->num_nodes; i++) {
@@ -84,6 +94,7 @@ int mst_min_key(TSP *tsp, int key[], bool in_mst[]) {
 	return min_idx;
 }
 
+// free heap memory for tsp struct
 void free_tsp(TSP *tsp) {
 	for (int i = 0; i < tsp->num_nodes; i++) {
 		free(tsp->graph[i]);
@@ -93,6 +104,8 @@ void free_tsp(TSP *tsp) {
 
 	free(tsp->nodes);
 	tsp->nodes = NULL;
+
+	array_free(tsp->mst_peers);
 
 	free(tsp);
 	tsp = NULL;

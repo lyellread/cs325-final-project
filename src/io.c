@@ -30,6 +30,11 @@ TSP *init_tsp(const char *path) {
     for (int i = 0; i < tsp->num_nodes; i++) {
         tsp->graph[i] = malloc(sizeof(int) * tsp->num_nodes);
     }
+    
+    tsp->mst_peers = malloc(sizeof(array_t *) * tsp->num_nodes);
+    for (int i = 0; i < tsp->num_nodes; i++) {
+        tsp->mst_peers[i] = array_new();
+    }
 
     return tsp;
 }

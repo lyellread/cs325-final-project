@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "array.h"
 #include "tsp.h"
 
 TSP *init_tsp(const char *);

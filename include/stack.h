@@ -8,7 +8,7 @@
 typedef array_t stack_t;
 
 stack_t stack_new();
-int pop(stack_t);
-void push(stack_t, int);
+int stack_pop(stack_t);
+void stack_push(stack_t, int);
 
 #endif

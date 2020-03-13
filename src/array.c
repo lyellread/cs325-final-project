@@ -2,8 +2,12 @@
 
 // double available memory for array
 void _array_resize(array_t arr) {
+    int *new_arr = malloc(sizeof(int) * (arr->size*2));
+    for (int i = 0; i < arr->length; i++) new_arr[i] = arr->data[i];
+    free(arr->data);
+
+    arr->data = new_arr;
     arr->size *= 2;
-    arr->data = realloc(arr->data, arr->size);
 }
 
 // make a new array with the specified width
@@ -28,29 +32,29 @@ void array_append(array_t arr, int data) {
     arr->data[arr->length++] = data;
 }
 
-// insert an element to a certain position
-void array_insert_at(array_t arr, int data, unsigned int idx) {
-    if (idx >= arr->length) abort();
-
-    arr->data[idx] = data;
-}
-
 // get an element from the array
+// O(c)
 int array_at(array_t arr, unsigned int idx) {
     if (idx >= arr->length) abort();
     return arr->data[idx];
 }
 
 // remove an element at certain index
+// returns the value that was removed
+// (used when generating the euler circuit)
 // O(n)
-void array_remove_at(array_t arr, unsigned int idx) {
+int array_remove_at(array_t arr, unsigned int idx) {
     if (idx >= arr->length) abort();
+
+    int val = arr->data[idx];
 
     for (int i = idx; i < arr->length-1; i++) {
         arr->data[i] = arr->data[i+1];
     }
 
     arr->length--;
+
+    return val;
 }
 
 // remove a certain value from the array

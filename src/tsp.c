@@ -142,6 +142,22 @@ void build_perfect_matching(TSP *tsp, array_t odd_vertices) {
 array_t generate_euler_tour(TSP *tsp) {
 	stack_t stack = stack_new();
 	array_t circuit = array_new();
+	int current_vertex = 0;
+
+	// iterate through all saved vertices and existing edges
+	while (tsp->multigraph[current_vertex]->length > 0 || stack->length > 0) {
+		if (tsp->multigraph[current_vertex]->length == 0) {
+			// no more edges, add to circuit
+			array_append(circuit, current_vertex);
+			current_vertex = stack_pop(stack);
+		} else {
+			// still has edges, push to stack and keep going
+			stack_push(stack, current_vertex);
+			current_vertex = array_remove_at(tsp->multigraph[current_vertex], 0);
+		}
+	}
+
+	return circuit;
 }
 
 

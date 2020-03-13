@@ -145,6 +145,19 @@ array_t generate_euler_tour(TSP *tsp) {
 }
 
 
+array_t tsp_from_euler (array_t euler_tour){
+	array_t tour = array_new();
+	//array_t visited = array_new() -- tour == visited for these purposes
+	for (int i = 0; i < euler_tour->length; i++){
+		if (array_in(tour, euler_tour->data[i]) == -1){
+			//not already visited
+			array_append(tour, euler_tour->data[i]);
+		}
+	}
+	array_free(euler_tour);
+	return tour;
+}
+
 // free heap memory for tsp struct
 void free_tsp(TSP *tsp) {
 	for (int i = 0; i < tsp->num_nodes; i++) {

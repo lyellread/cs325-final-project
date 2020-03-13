@@ -20,6 +20,7 @@ void array_insert_at(array_t, int, unsigned int);
 int array_at(array_t, unsigned int);
 void array_remove_at(array_t, unsigned int);
 void array_remove_elem(array_t, int);
+int array_in(array_t, int);
 void array_free(array_t);
 
 #endif

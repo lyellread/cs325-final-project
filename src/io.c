@@ -36,5 +36,30 @@ TSP *init_tsp(const char *path) {
         tsp->multigraph[i] = array_new();
     }
 
+    fclose(fp);
     return tsp;
+}
+
+void result_output (array_t tour, const char * path){
+    FILE * fp;
+
+    char extension[6] = ".tour";
+    char filename[100] = "\0";
+
+    strcat(filename, path);
+    strcat(filename, extension);
+
+    fp = fopen(filename, "w");
+    if (!fp) {
+        fputs("failed to open output file\n", stderr);
+        exit(1);
+    }
+
+    fprintf(fp, "%d\n", tour->length);
+
+    for (int i = 0; i < tour->length; i++){
+        fprintf(fp, "%d\n", tour->data[i]);
+    }
+
+    fclose(fp);
 }

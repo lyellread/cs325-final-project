@@ -2,4 +2,4 @@ tsp
 **/*.swp
 **/.vscode
 bin/
-.githistory
+.gdb_history

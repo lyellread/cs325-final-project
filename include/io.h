@@ -10,4 +10,5 @@
 
 TSP *init_tsp(const char *);
 void result_output (array_t, const char *);
+
 #endif

@@ -23,6 +23,8 @@ int main(int argc, char **argv) {
 
     array_t tour = tsp_from_euler(euler_tour);
 
+    result_output(tour, argv[1]);
+
     free_tsp(tsp);
     array_free(odd_vertices);
     array_free(euler_tour);

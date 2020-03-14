@@ -33,6 +33,9 @@ typedef struct {
 int get_euclidean_distance(Node, Node);
 void generate_graph(TSP *);
 int compute_nearest_neighbor(TSP *, int, array_t *);
+array_t two_opt(TSP *, array_t, int);
+array_t two_opt_swap(array_t , int, int);
+int get_total_distance(TSP *, array_t );
 void free_tsp(TSP *);
 
 #endif

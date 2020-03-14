@@ -28,9 +28,11 @@ while nodes != []:
 
     # find closest neighbor to current node
     nn = nodes[0]
+    nd = 10000000000000000
     for node in nodes:
-        if distance(node, current) < nn[0]:
+        if distance(node, current) < nd:
             nn = node
+            nd = distance(node, current)
 
     # node now contains closest node.   
     solution.append(node)

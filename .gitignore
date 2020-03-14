@@ -3,3 +3,4 @@ tsp
 **/.vscode
 bin/
 .gdb_history
+**/__pycache__

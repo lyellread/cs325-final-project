@@ -40,14 +40,12 @@ TSP *init_tsp(const char *path) {
     return tsp;
 }
 
-void result_output (array_t tour, const char * path){
+void result_output (TSP *tsp, array_t tour, const char * path){
     FILE * fp;
 
-    char extension[6] = ".tour";
-    char filename[100] = "\0";
+    char filename[100];
 
-    strcat(filename, path);
-    strcat(filename, extension);
+    snprintf(filename, 100, "%s.tour", path);
 
     fp = fopen(filename, "w");
     if (!fp) {
@@ -55,7 +53,10 @@ void result_output (array_t tour, const char * path){
         exit(1);
     }
 
-    fprintf(fp, "%d\n", tour->length);
+    // get the total distance
+    int distance = get_total_distance(tsp, tour);
+
+    fprintf(fp, "%d\n", distance);
 
     for (int i = 0; i < tour->length; i++){
         fprintf(fp, "%d\n", tour->data[i]);

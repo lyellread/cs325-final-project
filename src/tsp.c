@@ -173,6 +173,14 @@ array_t tsp_from_euler (array_t euler_tour){
 	return tour;
 }
 
+int get_total_distance(TSP *tsp, array_t tour) {
+	int distance = 0, i;
+	for (i = 0; i < tour->length-1; i++) {
+		distance += tsp->graph[tour->data[i]][tour->data[i+1]];
+	}
+	distance += tsp->graph[tour->data[i]][tour->data[0]];
+}
+
 // free heap memory for tsp struct
 void free_tsp(TSP *tsp) {
 	for (int i = 0; i < tsp->num_nodes; i++) {

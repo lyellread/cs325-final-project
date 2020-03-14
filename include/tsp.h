@@ -39,7 +39,8 @@ int mst_min_key(TSP *, int [], bool []);
 array_t get_odd_vertices(TSP *);
 void build_perfect_matching(TSP *, array_t);
 array_t generate_euler_tour(TSP *);
-array_t tsp_from_euler (array_t);
+array_t tsp_from_euler(array_t);
+int get_total_distance(TSP *, array_t);
 void free_tsp(TSP *);
 
 #endif

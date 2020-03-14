@@ -1,5 +1,5 @@
 CC=gcc
-C_FLAGS=-O3 -fno-stack-protector -no-pie -static -Wall -mavx -Iinclude/
+C_FLAGS=-O3 -fno-stack-protector -no-pie -static -Wall -mavx -Iinclude/ -g
 INC=-lm
 
 all: tsp

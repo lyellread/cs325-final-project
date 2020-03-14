@@ -46,10 +46,16 @@ for x in range (0, len(solution)-1):
     total_distance += distance(solution[x], solution[x+1])
 total_distance += distance(solution[0], solution[len(solution)-1])
 
-print(sys.argv[1], total_distance)
+print(sys.argv[1], int(total_distance))
 
 
-
+with open(sys.argv[1] + ".tour", "w") as f:
+    f.write(str(int(total_distance)))
+    for x in solution:
+        f.write("\n")
+        f.write(str(int(x[0])))
+    f.write("\n")
+    f.close()
 
 
 

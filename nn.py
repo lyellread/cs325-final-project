@@ -41,6 +41,7 @@ print(solution)
 total_distance = 0
 for x in range (0, len(solution)-1):
     total_distance += distance(solution[x], solution[x+1])
+total_distance += distance(solution[0], solution[len(solution)-1])
 
 print(total_distance)
 

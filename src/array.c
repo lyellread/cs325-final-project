@@ -22,6 +22,14 @@ array_t array_new() {
     return arr;
 }
 
+void array_print(array_t array){
+    printf("[");
+    for (int i = 0; i < array->length-1; i++){
+        printf("%d,", array->data[i]);
+    }
+    printf("%d] L=%d\n", array->data[array->length-1], array->length);
+}
+
 // append an element to the array
 // O(c)
 void array_append(array_t arr, int data) {

@@ -3,6 +3,7 @@
 
 #include <limits.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #define ARRAY_DEFAULT_SIZE 30
 
@@ -20,6 +21,7 @@ int array_at(array_t, unsigned int);
 int array_remove_at(array_t, unsigned int);
 void array_remove_elem(array_t, int);
 int array_in(array_t, int);
+void array_print(array_t);
 void array_free(array_t);
 
 #endif

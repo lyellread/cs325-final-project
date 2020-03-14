@@ -28,11 +28,19 @@ typedef struct {
     Node *nodes;
     int num_nodes;
     Graph graph; // 2D int array w/ Euclidean distances as values
+    array_t *multigraph; // this is the mst and then the perfect matching graph
+    // do it into the same graph b/c more efficient
 } TSP;
 
 int get_euclidean_distance(Node, Node);
 void generate_graph(TSP *);
-int compute_nearest_neighbor(TSP *, int, array_t *);
+void build_mst(TSP *);
+int mst_min_key(TSP *, int [], bool []);
+array_t get_odd_vertices(TSP *);
+void build_perfect_matching(TSP *, array_t);
+array_t generate_euler_tour(TSP *);
+array_t tsp_from_euler(array_t);
+int get_total_distance(TSP *, array_t);
 void free_tsp(TSP *);
 
 #endif

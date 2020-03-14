@@ -31,11 +31,16 @@ TSP *init_tsp(const char *path) {
         tsp->graph[i] = malloc(sizeof(int) * tsp->num_nodes);
     }
     
+    tsp->multigraph = malloc(sizeof(array_t *) * tsp->num_nodes);
+    for (int i = 0; i < tsp->num_nodes; i++) {
+        tsp->multigraph[i] = array_new();
+    }
+
     fclose(fp);
     return tsp;
 }
 
-void result_output (int distance, array_t visited, const char * path){
+void result_output (TSP *tsp, array_t tour, const char * path){
     FILE * fp;
 
     char filename[100];
@@ -48,10 +53,13 @@ void result_output (int distance, array_t visited, const char * path){
         exit(1);
     }
 
+    // get the total distance
+    int distance = get_total_distance(tsp, tour);
+
     fprintf(fp, "%d\n", distance);
 
-    for (int i = 0; i < visited->length; i++){
-        fprintf(fp, "%d\n", visited->data[i]);
+    for (int i = 0; i < tour->length; i++){
+        fprintf(fp, "%d\n", tour->data[i]);
     }
 
     fclose(fp);
